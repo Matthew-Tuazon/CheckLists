@@ -24,6 +24,19 @@ class ChecklistViewController: UITableViewController {
         return 100 //returns number of rows inputted
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+        if let cell = tableView.cellForRow(at: indexPath){
+            if cell.accessoryType == .none { //if no checkmark next to item, when tapped, put checkmark, else checkmarked already, take out checkmark
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true) //allows for animation when tapped and deselects
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         
