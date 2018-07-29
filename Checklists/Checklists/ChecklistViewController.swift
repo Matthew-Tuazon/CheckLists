@@ -10,6 +10,20 @@ import UIKit
 
 class ChecklistViewController: UITableViewController {
 
+    @IBAction func addItem() { //Creates a new ChecklistItem object and adds to items array
+        
+        let newRowIndex = items.count //Index 1 less than count
+        
+        let item = ChecklistItem()
+        item.text = "I am a new row"
+        item.checked = false
+        items.append(item)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0) //updates table view about new row, so add cell for row
+        let indexPaths = [indexPath] //temp array holding the new item
+        tableView.insertRows(at: indexPaths, with: .automatic) //inserts the new row
+        
+    }
     var items: [ChecklistItem] //declares items will hold array of ChecklistItem Obecjts
 
     
@@ -51,6 +65,8 @@ class ChecklistViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true //set nav controller title to large
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
