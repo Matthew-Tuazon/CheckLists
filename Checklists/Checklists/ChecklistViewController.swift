@@ -75,6 +75,14 @@ class ChecklistViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){ //commit editing style will automatically enable swipe-to-delete
+        
+        items.remove(at: indexPath.row) //remove item from data model
+        
+        let indexPaths = [indexPath] //delete the corresponding row from table view
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count //returns number of rows inputted
     }
