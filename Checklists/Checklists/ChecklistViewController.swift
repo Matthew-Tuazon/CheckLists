@@ -41,6 +41,11 @@ class ChecklistViewController: UITableViewController {
         row4item.checked = false
         items.append(row4item)
         
+        let row5item = ChecklistItem()
+        row5item.text = "Eat some chicant"
+        row5item.checked = false
+        items.append(row5item)
+        
         super.init(coder: aDecoder)
     }
     
@@ -63,9 +68,9 @@ class ChecklistViewController: UITableViewController {
         if let cell = tableView.cellForRow(at: indexPath){
             
             let item = items[indexPath.row] //asks the array for ChecklistItem object that corresponds to row number
-            item.checked = !item.checked
+            item.toggleChecked()
             
-            configureCheckmark(for: cell, at: indexPath)
+            configureCheckmark(for: cell, with: item)
         }
         
         tableView.deselectRow(at: indexPath, animated: true) //allows for animation when tapped and deselects
@@ -75,19 +80,15 @@ class ChecklistViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
         let item = items[indexPath.row]
         
-        let label = cell.viewWithTag(1000) as! UILabel
+        configureText(for: cell, with: item)
+        configureCheckmark(for: cell, with: item)
         
-        label.text = item.text
-        
-        
-        
-        configureCheckmark(for: cell, at: indexPath)
         return cell
     }
     
-    func configureCheckmark (for cell: UITableViewCell, at indexPath: IndexPath) {
+    func configureCheckmark (for cell: UITableViewCell, with item: ChecklistItem) {
         
-        let item = items[indexPath.row]
+        
         
         if item.checked {
             cell.accessoryType = .checkmark
@@ -96,6 +97,11 @@ class ChecklistViewController: UITableViewController {
         }
         
         
+    }
+    
+    func configureText(for cell: UITableViewCell, with item: ChecklistItem) { //sets checklist item's text on cell's label
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.text
     }
 
 }
